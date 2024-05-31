@@ -1,0 +1,39 @@
+.home-container {
+    margin-top: 20px;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.descripcion {
+    font-size: 20px;
+    font-weight: 400;
+    color:black;
+    margin: 20px 0; 
+    padding: 12px;
+}
+
+.titulo{
+    font-size: 60px;
+    font-weight: 600;
+    color:black;
+    text-align: center;
+    margin: 20px 0; 
+}
+.carousel-image {
+    height: 70vh;
+    object-fit: cover; 
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 12px;
+    gap:12px;
+}
+.subtitulo{
+    font-size: 20px;
+    font-weight: 40;
+    color:black;
+    margin: 20px 0;
+    text-align: left;
+}
+

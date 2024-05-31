@@ -1,0 +1,84 @@
+.detalle{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 16px;
+    gap:16px;
+
+}
+
+.img{
+   width: 400px; 
+}
+
+.cantidad-vendido{
+    font-size: 12px;
+    color: gray;
+}
+
+.titulo{
+    font-size: 29px;
+    font-weight: 600;
+}
+
+.precio{
+    font-size: 35px;
+    font-weight: 200;
+    padding-bottom: 24px;
+}
+
+.marca{
+    font-size: 14px;
+    font-weight: 500;
+}
+.modelo{
+    font-size: 14px;
+    padding-bottom: 24px;
+    font-weight: 500;
+}
+
+.envio{
+    font-size: 12px;
+    font-weight: 500;
+    padding-bottom: 48px;
+}
+.datos{
+    border-left: 1px lightgray solid;
+    padding-left: 16px;
+}
+
+.costo-de-envio{
+    color: orangered;
+}
+
+.costo-de-envio-gratis{
+    color: green;
+}
+
+.tarjeta{
+    width: 18rem;
+    background-color: aliceblue;
+    padding: 0px;
+    height: 450px;
+}
+
+.img-altura{
+    min-height: 200px;
+    max-height: 200px;
+}
+
+.altura-cuerpo{
+    min-height: 300px;
+    max-height: 300px;
+}
+
+.buttonSinStock{
+    background-color: gainsboro;
+}
+.buttonSinStock:hover{
+    background-color: red;
+}
+
+.espacio{
+    padding: 5px;
+}

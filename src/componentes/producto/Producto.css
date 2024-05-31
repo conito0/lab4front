@@ -1,0 +1,39 @@
+.producto{
+  display:flex;
+  flex-direction: row;
+  gap:16px;
+  border-bottom: 1px black solid;
+  padding-bottom: 8px;
+}
+
+.titulo{
+  font-size: x-large;
+  text-align: left !important;
+}
+
+.precio{
+  font-size: large;
+  font-weight: bold;
+}
+
+.datos{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.imagen{
+  width: 100%;
+  height: 450px;
+  object-fit: contain;
+}
+
+.envio-gratis{
+  color:green;
+
+}
+
+.envio-costo{
+  color:orange;
+
+}
