@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Usuario from "../entidades/Usuario";
 import { useState } from "react";
 import { Roles } from "../entidades/Roles";
+import ChartsGoogle from '../componentes/chartsGoogle/ChartsGoogle';
 
 export const NavBar = () => {
     
@@ -36,6 +37,7 @@ export const NavBar = () => {
                     <Nav.Link href="/catalogo">Catalogo</Nav.Link>
                     <Nav.Link href="/dondeEstamos">Ubicación</Nav.Link>
                     <Nav.Link href="/abm">Grilla</Nav.Link>
+                    <Nav.Link href="/chartsGoogle">ChartsGoogle</Nav.Link>
                     </Nav>
           <Nav className="ms-auto align-items-center"> {/* Añadir ms-auto y align-items-center */}
             <li>

@@ -36,6 +36,7 @@ export const put = async(id: number, producto: Producto): Promise<Producto> => {
     return data.json();
 }
 
+
 export const deleteInstrumento = async(id:number)=>{
     await fetch(`http://localhost:8080/instrumento/${id}`, {
         method: 'DELETE',
@@ -57,6 +58,34 @@ export async function createPreferenceMP(pedido?:Pedido){
 	});
     return await response.json() as PreferenceMP;   
 }   
+
+export async function getDatosChartLineFetch(){
+	const urlServer = 'http://localhost:8080/api/datachartline';
+	const response = await fetch(urlServer, {
+		method: 'GET',
+        headers: {
+			'Content-type': 'application/json',
+			'Access-Control-Allow-Origin':'*'
+		},
+        mode: 'cors'
+	});
+	console.log(response);
+	return await response.json();
+}
+
+export async function getDatosChartPieFetch(){
+    const urlServer = 'http://localhost:8080/api/datachartpie';
+	const response = await fetch(urlServer, {
+		method: 'GET',
+        headers: {
+			'Content-type': 'application/json',
+			'Access-Control-Allow-Origin':'*'
+		},
+        mode: 'cors'
+	});
+	console.log(response);
+	return await response.json();
+}
 
 
     

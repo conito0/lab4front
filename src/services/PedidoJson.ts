@@ -21,3 +21,13 @@ export const postPedido = async (items: any[], totalPedido: number | undefined) 
         return data.json();
 
 }
+
+export const getStats = async () => {
+    const data = await fetch(`http://localhost:8080/pedido/stats`)
+    return data.json();
+}
+
+export const getStatsDetalle = async () => {
+    const data = await fetch(`http://localhost:8080/pedidoDetalle/stats`)
+    return data.json();
+}

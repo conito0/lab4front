@@ -6,7 +6,7 @@ import { Catalogo } from './componentes/catalogo/Catalogo'
 import { Detalle } from './componentes/detalle/Detalle'
 import Home from './componentes/home/Home'
 import DondeEstamos from './componentes/dondeEstamos/DondeEstamos'
-import "../../node_modules/bootstrap/dist/css/bootstrap.css"
+import "../node_modules/bootstrap/dist/css/bootstrap.css"
 import { NavBar } from './navBar/NavBar';
 import { Tabla } from './componentes/tabla/Tabla';
 import LoaderPage from './componentes/loaderPage/LoaderPage';
@@ -14,6 +14,7 @@ import RolUsuario from './controlAcceso/RolUsuario';
 import { Roles } from './entidades/Roles';
 import { RutaPrivada } from './controlAcceso/RutaPrivada';
 import Login from './componentes/login/Login';
+import ChartsGoogle from './componentes/chartsGoogle/ChartsGoogle'
 
 
 
@@ -40,9 +41,11 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                                             <Catalogo />
                                         </RutaPrivada>
                                     } />
+
       //ruta privada y con Rol Administrador
       <Route element={<RolUsuario rol={Roles.ADMIN} />} />
-       
+       //ruta publica
+      <Route path='/chartsGoogle'element={<ChartsGoogle />} />
      
     </Routes>
   </BrowserRouter>
