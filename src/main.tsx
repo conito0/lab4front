@@ -36,7 +36,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       //ruta publica
       <Route path='/detalle/:id' element={<Detalle/>} /> 
       //ruta privada
-      <Route path="/catalogo" element={
+      <Route path="/productos" element={
                                         <RutaPrivada>
                                             <Catalogo />
                                         </RutaPrivada>
@@ -45,7 +45,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       //ruta privada y con Rol Administrador
       <Route element={<RolUsuario rol={Roles.ADMIN} />} />
        //ruta publica
-      <Route path='/chartsGoogle'element={<ChartsGoogle />} />
+      <Route path='/reportes'element={<ChartsGoogle />} />
      
     </Routes>
   </BrowserRouter>

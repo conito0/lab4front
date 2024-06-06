@@ -20,12 +20,13 @@ export const Tabla = ()=>{
       instrumento:"",
       marca:"",
       modelo:"",
-      precio:"",
+      precio:0,
       categoria:{
         id:0,
         denominacion:"",
       },
-
+      cantidad: 0,
+      imagenPath: ""
     });
 
     const [show, setShow] = useState(false);
@@ -36,11 +37,22 @@ export const Tabla = ()=>{
 
       await deleteInstrumento(id)
       
+      const productosBack = await getAll();
       setProductos(await getAll());
+
+      if((document.getElementById("categoriaSeleccionada") as any).value === "0") {
+        setProductosFiltrados(productosBack);
+      } else {
+        setProductosFiltrados(productosBack.filter((value) => value.categoria.id.toString() === (document.getElementById("categoriaSeleccionada") as any).value));
+      }
     }
 
 
     const handleSave = async () => {
+
+      if(productoFormulario.categoria.id === 0) {
+        productoFormulario.categoria.id = categorias[0].id || 0
+      }
 
       if(productoFormulario.id === 0) {
         await post(productoFormulario)
@@ -48,7 +60,14 @@ export const Tabla = ()=>{
         await put(productoFormulario.id, productoFormulario);
       }
 
+      const productosBack = await getAll();
       setProductos(await getAll());
+
+      if((document.getElementById("categoriaSeleccionada") as any).value === "0") {
+        setProductosFiltrados(productosBack);
+      } else {
+        setProductosFiltrados(productosBack.filter((value) => value.categoria.id.toString() === (document.getElementById("categoriaSeleccionada") as any).value));
+      }
 
       setShow(false);
     }
@@ -56,34 +75,34 @@ export const Tabla = ()=>{
     const handleShow = (productoFormulario: Producto | undefined) => {
 
       setProductoFormulario(productoFormulario ? productoFormulario : {
+        cantidad: 0,
         cantidadVendida: "",
-        costoEnvio:"",
-        descripcion:"",
-        id:0,
-        nombre: "",
-        imagen:"",
-        instrumento:"",
-        marca:"",
-        modelo:"",
-        precio:"",
-        categoria:{
-          id: (categorias[0] || { id: 0}).id,
-          denominacion:"",
+        categoria: {
+          id: 0,
+          denominacion: ''
         },
-  
+        costoEnvio: "",
+        descripcion: "",
+        id: 0,
+        imagen: "",
+        imagenPath: "",
+        instrumento: "",
+        marca: "",
+        modelo: "",
+        nombre: "",
+        precio: 0,
       })
 
       setShow(true);
     }
 
     const handleChangeCategoria = (e: any) => {
-      e.preventDefault();
+      console.log(e)
 
-      const productoFormularioTemp = productoFormulario;
-      (productoFormularioTemp as any)["categoria"]["id"] = e.target.value;
+      productoFormulario.categoria.id = e.target.value;
     
 
-      setProductoFormulario(productoFormularioTemp);
+      setProductoFormulario(productoFormulario);
 
       console.log(productoFormulario)
     }
@@ -93,10 +112,10 @@ export const Tabla = ()=>{
 
       console.log(e)
 
-      if(e.target.value === 0) {
+      if(e.target.value === "0") {
         setProductosFiltrados(productos)
       } else {
-        setProductosFiltrados(productos.filter((producto) => producto.categoria.id === e.target.value))
+        setProductosFiltrados(productos.filter((producto) => producto.categoria.id.toString() === e.target.value))
       }
 
 
@@ -127,21 +146,25 @@ export const Tabla = ()=>{
     },[])
 
     return<>
-    <Button onClick={() => handleShow(undefined)} variant="primary">Agregar</Button>{' '}<span>
-    <Form.Select defaultValue={(categorias[0] || { id: 0}).id} onSelect={handleSearch}>
-            <option value="0">Todas</option>
-            {categorias.map((v) => {
-              return <>
-                <option value={v.id}>{v.denominacion}</option>
-              </>
-            })}
-    </Form.Select>
-    </span>
-    <Container fluid>
+    <div className="p-3" >
+      <Button className="my-3"  onClick={() => handleShow(undefined)} variant="primary">Agregar</Button>{' '}<span>
+      <Form.Select id="categoriaSeleccionada" defaultValue={(categorias[0] || { id: 0}).id} onChange={handleSearch} onSelect={handleSearch}>
+              <option value="0">Todas</option>
+              {categorias.map((v) => {
+                return <>
+                  <option value={v.id.toString()}>{v.denominacion}</option>
+                </>
+              })}
+      </Form.Select>
+      </span>
+    </div>
+    
+    <Container className="p-3" fluid>
       <Table striped bordered hover>
         <thead>
           <tr>
             <th>Id</th>
+            <th>Nombre</th>
             <th>Instrumento</th>
             <th>Marca</th>
             <th>Modelo</th>
@@ -158,19 +181,20 @@ export const Tabla = ()=>{
               productosFiltrados.map(producto=>{
                   return <tr>
                       <td>{producto.id}</td>
+                      <td>{producto.nombre}</td>
                       <td>{producto.instrumento}</td>
                       <td>{producto.marca}</td>
                       <td>{producto.modelo}</td>
-                      <td>{producto.imagen}</td>
+                      <td className="d-flex justify-content-center"><img src={producto.imagen} height={100} width={100}></img></td>
                       <td>{producto.precio}</td>
                       <td>{producto.costoEnvio}</td>
                       <td>{producto.descripcion}</td>
                       <td>{producto.categoria.denominacion}</td>
                       <td>
-                      <Button variant="secondary" onClick={() => handleDelete(producto.id)}>
+                      <Button className="mx-2" variant="danger" onClick={() => handleDelete(producto.id)}>
                         Eliminar
                       </Button>
-                      <Button variant="primary" onClick={() => handleShow(producto)}>
+                      <Button className="mx-2" variant="primary" onClick={() => handleShow(producto)}>
                         Modificar
                       </Button>
                       </td>
@@ -287,7 +311,7 @@ export const Tabla = ()=>{
           </Form>
 
           Categoria
-          <Form.Select defaultValue={(categorias[0] || { id: 0}).id} onSelect={handleChangeCategoria}>
+          <Form.Select defaultValue={(categorias[0] || { id: 0}).id} onChange={handleChangeCategoria}>
             {categorias.map((v) => {
               return <>
                 <option value={v.id}>{v.denominacion}</option>
@@ -299,10 +323,10 @@ export const Tabla = ()=>{
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Close
+            Cerrar
           </Button>
-          <Button variant="primary" onClick={handleSave}>
-            Save Changes
+          <Button variant="success" onClick={handleSave}>
+            Guardar
           </Button>
         </Modal.Footer>
       </Modal>

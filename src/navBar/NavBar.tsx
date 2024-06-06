@@ -20,6 +20,8 @@ export const NavBar = () => {
                     logged: false
                 },
 		    });
+
+        location.reload();
     }
 
     const [jsonUsuario, setJSONUsuario] = useState<any>(localStorage.getItem('usuario'));
@@ -34,10 +36,10 @@ export const NavBar = () => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
-                    <Nav.Link href="/catalogo">Catalogo</Nav.Link>
+                    <Nav.Link href="/productos">Productos</Nav.Link>
                     <Nav.Link href="/dondeEstamos">Ubicación</Nav.Link>
-                    <Nav.Link href="/abm">Grilla</Nav.Link>
-                    <Nav.Link href="/chartsGoogle">ChartsGoogle</Nav.Link>
+                    <Nav.Link hidden={usuarioLogueado?.rol !== 'ADMIN'} href="/abm">Grilla</Nav.Link>
+                    <Nav.Link hidden={usuarioLogueado?.rol !== 'ADMIN'} href="/reportes">Reportes</Nav.Link>
                     </Nav>
           <Nav className="ms-auto align-items-center"> {/* Añadir ms-auto y align-items-center */}
             <li>
@@ -49,9 +51,16 @@ export const NavBar = () => {
               </a>
             </li>
             <li className="nav-item">
-            <Button onClick={cerrarSesion} variant="danger">
+
+            {
+              usuarioLogueado
+              ? <Button onClick={cerrarSesion} variant="danger">
                   <span style={{fontSize: '15px', width: "100px", height: "10px"}}>Cerrar sesion</span>
                 </Button>
+              : <Button onClick={cerrarSesion} variant="primary">
+                  <span style={{fontSize: '15px', width: "100px", height: "10px"}}>Iniciar sesion</span>
+                </Button>
+            }
 
 
               

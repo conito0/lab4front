@@ -39,13 +39,15 @@ function Login() {
             }
             setUsuario(usuarioBackend);
             localStorage.setItem('usuario', JSON.stringify(usuarioBackend));
-            navigate('/detalle:id', {
+            navigate('/home', {
                 replace: true,
                 state: {
                     logged: true,
                     usuario: usuarioBackend
                 },
 		    });
+
+            location.reload();
         } else {
             setTxtValidacion("Usuario y/o clave incorrectas");
             return;
@@ -54,8 +56,8 @@ function Login() {
 
      return (
         <>
-        <div className="center">
-            <form>
+        <div className="d-flex justify-content-center center m-5">
+            <form style={{maxWidth: "400px"}}>
                 <div className="mb-3">
                     <label htmlFor="txtUsuario" className="form-label">Usuario</label>
                     <input type="text" id='txtUsuario' className="form-control" placeholder="Ingrese el nombre" defaultValue={usuario?.usuario} onChange={e => usuario.usuario = String(e.target.value)} onKeyDown={(e) => {if (e.key === "Enter") login();}}/>
